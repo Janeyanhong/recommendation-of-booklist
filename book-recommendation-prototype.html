@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>豆瓣年度图书榜单（不定期更新）</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        h1 {
+            font-size: 28px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 16px;
+            color: #666;
+        }
+        
+        .book-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .book-card {
+            background-color: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .book-rank {
+            background-color: #3a7ab7;
+            color: #fff;
+            font-size: 18px;
+            font-weight: bold;
+            padding: 8px 15px;
+        }
+        
+        .book-content {
+            display: flex;
+            padding: 20px;
+        }
+        
+        .book-cover {
+            width: 120px;
+            flex-shrink: 0;
+            margin-right: 20px;
+        }
+        
+        .book-cover img {
+            width: 100%;
+            height: auto;
+            border-radius: 4px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+        }
+        
+        .book-info {
+            flex: 1;
+        }
+        
+        .book-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #333;
+        }
+        
+        .book-meta {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 12px;
+            line-height: 1.5;
+        }
+        
+        .book-desc {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        
+        .book-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        
+        .book-tag {
+            font-size: 12px;
+            color: #37a;
+            background-color: #f2f6f9;
+            padding: 4px 8px;
+            border-radius: 4px;
+            margin-right: 5px;
+            margin-bottom: 5px;
+        }
+        
+        .book-links {
+            margin-top: 15px;
+            display: flex;
+        }
+        
+        .book-link {
+            display: inline-flex;
+            align-items: center;
+            color: #07c160;
+            text-decoration: none;
+            font-size: 14px;
+            padding: 5px 10px;
+            border: 1px solid #07c160;
+            border-radius: 4px;
+            transition: all 0.3s;
+        }
+        
+        .book-link:hover {
+            background-color: #07c160;
+            color: white;
+        }
+        
+        .book-link i {
+            margin-right: 5px;
+        }
+        
+        .book-link.weread {
+            color: #07c160;
+            border: 1px solid #07c160;
+            margin-right: 10px;
+            font-weight: normal;
+            padding: 4px 10px;
+            border-radius: 4px;
+            background-color: white;
+            font-size: 13px;
+        }
+        
+        .book-link.weread:hover {
+            background-color: #e8f7ef;
+        }
+        
+        .book-link.dedao {
+            color: #fa8919;
+            border: 1px solid #fa8919;
+            font-weight: normal;
+            padding: 4px 10px;
+            border-radius: 4px;
+            background-color: white;
+            font-size: 13px;
+        }
+        
+        .book-link.dedao:hover {
+            background-color: #fef2e8;
+        }
+        
+        .book-link i {
+            font-size: 14px;
+        }
+        
+        @media (max-width: 768px) {
+            .book-list {
+                grid-template-columns: 1fr;
+            }
+            
+            .book-content {
+                flex-direction: column;
+            }
+            
+            .book-cover {
+                width: 100%;
+                margin-right: 0;
+                margin-bottom: 15px;
+                text-align: center;
+            }
+            
+            .book-cover img {
+                width: 120px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>豆瓣年度图书榜单（不定期更新）</h1>
+            <p class="subtitle">这些书籍代表了过去一年中最受读者喜爱和关注的作品</p>
+        </header>
+        
+        <div class="book-list">
+            <!-- 书籍1 -->
+            <div class="book-card">
+                <div class="book-rank">BOOK 1</div>
+                <div class="book-content">
+                    <div class="book-cover">
+                        <img src="images/康熙的红票.jpg" alt="康熙的红票">
+                    </div>
+                    <div class="book-info">
+                        <h2 class="book-title">康熙的红票</h2>
+                        <div class="book-meta">
+                            <p>作者：高宇</p>
+                            <p>出版社：北京联合出版公司</p>
+                            <p>出版年：2023年</p>
+                        </div>
+                        <p class="book-desc">本书以康熙时期的红票为切入点，探讨了清朝社会经济制度的变迁以及其对中国古代货币制度的影响。作者通过丰富的史料和细致的分析，揭示了这一历史现象背后的深层次原因。</p>
+                        <div class="book-tags">
+                            <span class="book-tag">历史</span>
+                            <span class="book-tag">经济</span>
+                            <span class="book-tag">清朝</span>
+                        </div>
+                        <div class="book-links">
+                            <a href="https://weread.qq.com/web/search/books?keyword=康熙的红票" target="_blank" class="book-link weread">
+                                <i class="fas fa-book-reader"></i> 微信读书
+                            </a>
+                            <a href="https://www.dedao.cn/search/result?q=康熙的红票" target="_blank" class="book-link dedao">
+                                <i class="fas fa-graduation-cap"></i> 得到电子书
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 书籍2 -->
+            <div class="book-card">
+                <div class="book-rank">BOOK 2</div>
+                <div class="book-content">
+                    <div class="book-cover">
+                        <img src="images/世上为什么要有图书馆.jpg" alt="世上为什么要有图书馆">
+                    </div>
+                    <div class="book-info">
+                        <h2 class="book-title">世上为什么要有图书馆</h2>
+                        <div class="book-meta">
+                            <p>作者：张悦然</p>
+                            <p>出版社：上海文艺出版社</p>
+                            <p>出版年：2023年</p>
+                        </div>
+                        <p class="book-desc">一部讲述图书馆历史、意义和价值的作品，探索了图书馆作为人类文明重要载体的角色。作者通过对世界各地图书馆的走访和研究，展现了图书馆如何影响人类的知识传承和文化发展。</p>
+                        <div class="book-tags">
+                            <span class="book-tag">文化</span>
+                            <span class="book-tag">图书馆</span>
+                            <span class="book-tag">人文</span>
+                        </div>
+                        <div class="book-links">
+                            <a href="https://weread.qq.com/web/search/books?keyword=世上为什么要有图书馆" target="_blank" class="book-link weread">
+                                <i class="fas fa-book-reader"></i> 微信读书
+                            </a>
+                            <a href="https://www.dedao.cn/search/result?q=世上为什么要有图书馆" target="_blank" class="book-link dedao">
+                                <i class="fas fa-graduation-cap"></i> 得到电子书
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 书籍3 -->
+            <div class="book-card">
+                <div class="book-rank">BOOK 3</div>
+                <div class="book-content">
+                    <div class="book-cover">
+                        <img src="images/我在北京送快递.jpg" alt="我在北京送快递">
+                    </div>
+                    <div class="book-info">
+                        <h2 class="book-title">我在北京送快递</h2>
+                        <div class="book-meta">
+                            <p>作者：胡安焉</p>
+                            <p>出版社：上海译文出版社</p>
+                            <p>出版年：2023年</p>
+                        </div>
+                        <p class="book-desc">作者通过亲身体验快递员工作，记录了快递员的日常生活和工作状态，展现了这个群体的真实面貌和生存状态，也反映了当代城市的社会现实和劳动者的生存困境。</p>
+                        <div class="book-tags">
+                            <span class="book-tag">社会</span>
+                            <span class="book-tag">纪实</span>
+                            <span class="book-tag">劳动</span>
+                        </div>
+                        <div class="book-links">
+                            <a href="https://weread.qq.com/web/search/books?keyword=我在北京送快递" target="_blank" class="book-link weread">
+                                <i class="fas fa-book-reader"></i> 微信读书
+                            </a>
+                            <a href="https://www.dedao.cn/search/result?q=我在北京送快递" target="_blank" class="book-link dedao">
+                                <i class="fas fa-graduation-cap"></i> 得到电子书
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 书籍4 -->
+            <div class="book-card">
+                <div class="book-rank">BOOK 4</div>
+                <div class="book-content">
+                    <div class="book-cover">
+                        <img src="images/语言恶女.jpg" alt="语言恶女">
+                    </div>
+                    <div class="book-info">
+                        <h2 class="book-title">语言恶女</h2>
+                        <div class="book-meta">
+                            <p>作者：李诞</p>
+                            <p>出版社：文化艺术出版社</p>
+                            <p>出版年：2023年</p>
+                        </div>
+                        <p class="book-desc">探讨语言学和性别研究的交叉领域，分析语言如何塑造和反映性别观念。作者通过对日常语言中性别歧视现象的剖析，揭示了语言与权力、性别与话语之间的复杂关系。</p>
+                        <div class="book-tags">
+                            <span class="book-tag">语言学</span>
+                            <span class="book-tag">性别研究</span>
+                            <span class="book-tag">社会学</span>
+                        </div>
+                        <div class="book-links">
+                            <a href="https://weread.qq.com/web/search/books?keyword=语言恶女" target="_blank" class="book-link weread">
+                                <i class="fas fa-book-reader"></i> 微信读书
+                            </a>
+                            <a href="https://www.dedao.cn/search/result?q=语言恶女" target="_blank" class="book-link dedao">
+                                <i class="fas fa-graduation-cap"></i> 得到电子书
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 书籍5 -->
+            <div class="book-card">
+                <div class="book-rank">BOOK 5</div>
+                <div class="book-content">
+                    <div class="book-cover">
+                        <img src="images/无条件投降博物馆.jpg" alt="无条件投降博物馆">
+                    </div>
+                    <div class="book-info">
+                        <h2 class="book-title">无条件投降博物馆</h2>
+                        <div class="book-meta">
+                            <p>作者：[南斯拉夫] 达尼洛·基什</p>
+                            <p>出版社：北京大学出版社</p>
+                            <p>出版年：2023年</p>
+                        </div>
+                        <p class="book-desc">以一座虚构的博物馆为背景，探讨历史记忆、文化认同和集体创伤。作者通过对博物馆中各种展品的描述，反思了战争、暴力和人类历史中的黑暗面，以及人们如何面对和处理这些历史记忆。</p>
+                        <div class="book-tags">
+                            <span class="book-tag">文学</span>
+                            <span class="book-tag">历史</span>
+                            <span class="book-tag">记忆</span>
+                        </div>
+                        <div class="book-links">
+                            <a href="https://weread.qq.com/web/search/books?keyword=无条件投降博物馆" target="_blank" class="book-link weread">
+                                <i class="fas fa-book-reader"></i> 微信读书
+                            </a>
+                            <a href="https://www.dedao.cn/search/result?q=无条件投降博物馆" target="_blank" class="book-link dedao">
+                                <i class="fas fa-graduation-cap"></i> 得到电子书
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 书籍6 -->
+            <div class="book-card">
+                <div class="book-rank">BOOK 6</div>
+                <div class="book-content">
+                    <div class="book-cover">
+                        <img src="images/早安，怪物.jpg" alt="早安，怪物">
+                    </div>
+                    <div class="book-info">
+                        <h2 class="book-title">早安，怪物</h2>
+                        <div class="book-meta">
+                            <p>作者：[加拿大] 金·富尔</p>
+                            <p>出版社：南京大学出版社</p>
+                            <p>出版年：2023年</p>
+                        </div>
+                        <p class="book-desc">一部关于成长、自我认同和面对内心恐惧的小说，通过怪物的隐喻探讨人性和社会问题。作者以独特的叙事方式，讲述了主人公如何与自己内心的"怪物"和解，并在这个过程中找到自我。</p>
+                        <div class="book-tags">
+                            <span class="book-tag">小说</span>
+                            <span class="book-tag">成长</span>
+                            <span class="book-tag">心理</span>
+                        </div>
+                        <div class="book-links">
+                            <a href="https://weread.qq.com/web/search/books?keyword=早安，怪物" target="_blank" class="book-link weread">
+                                <i class="fas fa-book-reader"></i> 微信读书
+                            </a>
+                            <a href="https://www.dedao.cn/search/result?q=早安，怪物" target="_blank" class="book-link dedao">
+                                <i class="fas fa-graduation-cap"></i> 得到电子书
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 书籍7 -->
+            <div class="book-card">
+                <div class="book-rank">BOOK 7</div>
+                <div class="book-content">
+                    <div class="book-cover">
+                        <img src="images/过渡劳动.jpg" alt="过渡劳动">
+                    </div>
+                    <div class="book-info">
+                        <h2 class="book-title">过渡劳动</h2>
+                        <div class="book-meta">
+                            <p>作者：刘怡</p>
+                            <p>出版社：浙江大学出版社</p>
+                            <p>出版年：2023年</p>
+                        </div>
+                        <p class="book-desc">探讨当代工作形态的变迁，分析过渡劳动对个人和社会生活的影响。作者通过对不同行业和职业的调研，揭示了数字化时代劳动关系的新特点和新挑战，以及劳动者如何应对这些变化。</p>
+                        <div class="book-tags">
+                            <span class="book-tag">社会学</span>
+                            <span class="book-tag">劳动研究</span>
+                            <span class="book-tag">经济</span>
+                        </div>
+                        <div class="book-links">
+                            <a href="https://weread.qq.com/web/search/books?keyword=过渡劳动" target="_blank" class="book-link weread">
+                                <i class="fas fa-book-reader"></i> 微信读书
+                            </a>
+                            <a href="https://www.dedao.cn/search/result?q=过渡劳动" target="_blank" class="book-link dedao">
+                                <i class="fas fa-graduation-cap"></i> 得到电子书
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 书籍8 -->
+            <div class="book-card">
+                <div class="book-rank">BOOK 8</div>
+                <div class="book-content">
+                    <div class="book-cover">
+                        <img src="images/娜斯佳的眼泪.jpg" alt="娜斯佳的眼泪">
+                    </div>
+                    <div class="book-info">
+                        <h2 class="book-title">娜斯佳的眼泪</h2>
+                        <div class="book-meta">
+                            <p>作者：[俄] 格里戈里·斯卢日特尔</p>
+                            <p>出版社：新星出版社</p>
+                            <p>出版年：2023年</p>
+                        </div>
+                        <p class="book-desc">描述俄罗斯女孩娜斯佳的成长经历，通过一个个人故事反映社会变迁。作者以细腻的笔触描绘了主人公在动荡时代中的生活和情感，展现了个人命运与历史进程的交织。</p>
+                        <div class="book-tags">
+                            <span class="book-tag">小说</span>
+                            <span class="book-tag">俄罗斯</span>
+                            <span class="book-tag">成长</span>
+                        </div>
+                        <div class="book-links">
+                            <a href="https://weread.qq.com/web/search/books?keyword=娜斯佳的眼泪" target="_blank" class="book-link weread">
+                                <i class="fas fa-book-reader"></i> 微信读书
+                            </a>
+                            <a href="https://www.dedao.cn/search/result?q=娜斯佳的眼泪" target="_blank" class="book-link dedao">
+                                <i class="fas fa-graduation-cap"></i> 得到电子书
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 书籍9 -->
+            <div class="book-card">
+                <div class="book-rank">BOOK 9</div>
+                <div class="book-content">
+                    <div class="book-cover">
+                        <img src="images/蛋先生的学术生存.jpg" alt="蛋先生的学术生存">
+                    </div>
+                    <div class="book-info">
+                        <h2 class="book-title">蛋先生的学术生存</h2>
+                        <div class="book-meta">
+                            <p>作者：蛋蛋</p>
+                            <p>出版社：北京大学出版社</p>
+                            <p>出版年：2023年</p>
+                        </div>
+                        <p class="book-desc">以幽默风趣的方式描述学术界生存法则，为年轻学者提供建议。作者通过自己在学术界的亲身经历和观察，揭示了学术研究、发表、申请基金等方面的实用技巧和潜规则。</p>
+                        <div class="book-tags">
+                            <span class="book-tag">学术</span>
+                            <span class="book-tag">指南</span>
+                            <span class="book-tag">职场</span>
+                        </div>
+                        <div class="book-links">
+                            <a href="https://weread.qq.com/web/search/books?keyword=蛋先生的学术生存" target="_blank" class="book-link weread">
+                                <i class="fas fa-book-reader"></i> 微信读书
+                            </a>
+                            <a href="https://www.dedao.cn/search/result?q=蛋先生的学术生存" target="_blank" class="book-link dedao">
+                                <i class="fas fa-graduation-cap"></i> 得到电子书
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 书籍10 -->
+            <div class="book-card">
+                <div class="book-rank">BOOK 10</div>
+                <div class="book-content">
+                    <div class="book-cover">
+                        <img src="images/移民路上的生与死.jpg" alt="移民路上的生与死">
+                    </div>
+                    <div class="book-info">
+                        <h2 class="book-title">移民路上的生与死</h2>
+                        <div class="book-meta">
+                            <p>作者：[美] 杰森·德莱昂</p>
+                            <p>出版社：上海译文出版社</p>
+                            <p>出版年：2023年</p>
+                        </div>
+                        <p class="book-desc">记录了不同移民群体的真实故事，探讨了移民过程中面临的挑战和生存困境。作者通过深入调查和采访，展现了移民们为了追求更好生活而经历的艰辛历程，以及他们所面临的政治、经济和社会问题。</p>
+                        <div class="book-tags">
+                            <span class="book-tag">社会</span>
+                            <span class="book-tag">移民</span>
+                            <span class="book-tag">纪实</span>
+                        </div>
+                        <div class="book-links">
+                            <a href="https://weread.qq.com/web/search/books?keyword=移民路上的生与死" target="_blank" class="book-link weread">
+                                <i class="fas fa-book-reader"></i> 微信读书
+                            </a>
+                            <a href="https://www.dedao.cn/search/result?q=移民路上的生与死" target="_blank" class="book-link dedao">
+                                <i class="fas fa-graduation-cap"></i> 得到电子书
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 书籍11 -->
+            <div class="book-card">
+                <div class="book-rank">BOOK 11</div>
+                <div class="book-content">
+                    <div class="book-cover">
+                        <img src="images/我用中文做了场梦.jpg" alt="我用中文做了场梦">
+                    </div>
+                    <div class="book-info">
+                        <h2 class="book-title">我用中文做了场梦</h2>
+                        <div class="book-meta">
+                            <p>作者：[美] 林怀民</p>
+                            <p>出版社：人民文学出版社</p>
+                            <p>出版年：2023年</p>
+                        </div>
+                        <p class="book-desc">一部关于语言、身份认同和文化融合的作品，通过中文梦境的隐喻探讨跨文化体验。作者以自己在中西文化之间的生活经历为基础，思考了语言如何塑造思维方式和文化认同。</p>
+                        <div class="book-tags">
+                            <span class="book-tag">文化</span>
+                            <span class="book-tag">语言</span>
+                            <span class="book-tag">身份认同</span>
+                        </div>
+                        <div class="book-links">
+                            <a href="https://weread.qq.com/web/search/books?keyword=我用中文做了场梦" target="_blank" class="book-link weread">
+                                <i class="fas fa-book-reader"></i> 微信读书
+                            </a>
+                            <a href="https://www.dedao.cn/search/result?q=我用中文做了场梦" target="_blank" class="book-link dedao">
+                                <i class="fas fa-graduation-cap"></i> 得到电子书
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 书籍12 -->
+            <div class="book-card">
+                <div class="book-rank">BOOK 12</div>
+                <div class="book-content">
+                    <div class="book-cover">
+                        <img src="images/我看见的世界.jpg" alt="我看见的世界">
+                    </div>
+                    <div class="book-info">
+                        <h2 class="book-title">我看见的世界</h2>
+                        <div class="book-meta">
+                            <p>作者：李飞飞</p>
+                            <p>出版社：中信出版集团</p>
+                            <p>出版年：2023年</p>
+                        </div>
+                        <p class="book-desc">这是一部关于人工智能与人类视觉的思考录。李飞飞教授结合自己在计算机视觉和人工智能领域的研究经验，探讨了机器如何"看见"世界，以及这一技术对人类社会的影响。书中既有深刻的学术思考，也有作者对科技伦理和人文关怀的反思。</p>
+                        <div class="book-tags">
+                            <span class="book-tag">人工智能</span>
+                            <span class="book-tag">科技</span>
+                            <span class="book-tag">计算机视觉</span>
+                        </div>
+                        <div class="book-links">
+                            <a href="https://weread.qq.com/web/search/books?keyword=我看见的世界" target="_blank" class="book-link weread">
+                                <i class="fas fa-book-reader"></i> 微信读书
+                            </a>
+                            <a href="https://www.dedao.cn/search/result?q=我看见的世界" target="_blank" class="book-link dedao">
+                                <i class="fas fa-graduation-cap"></i> 得到电子书
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 书籍13 -->
+            <div class="book-card">
+                <div class="book-rank">BOOK 13</div>
+                <div class="book-content">
+                    <div class="book-cover">
+                        <img src="images/我的母亲做保洁.jpg" alt="我的母亲做保洁">
+                    </div>
+                    <div class="book-info">
+                        <h2 class="book-title">我的母亲做保洁</h2>
+                        <div class="book-meta">
+                            <p>作者：[美] 斯蒂芬妮·兰德</p>
+                            <p>出版社：上海译文出版社</p>
+                            <p>出版年：2023年</p>
+                        </div>
+                        <p class="book-desc">这是一部关于阶层、劳动和亲情的纪实作品。作者记录了自己的母亲作为一名保洁工人的生活经历，通过个人视角展现了低收入劳动者的艰辛与尊严。书中既有对社会不平等的深刻反思，也有对母女关系的温情描绘，引发读者对劳动价值和社会公正的思考。</p>
+                        <div class="book-tags">
+                            <span class="book-tag">纪实</span>
+                            <span class="book-tag">社会学</span>
+                            <span class="book-tag">劳动</span>
+                        </div>
+                        <div class="book-links">
+                            <a href="https://weread.qq.com/web/search/books?keyword=我的母亲做保洁" target="_blank" class="book-link weread">
+                                <i class="fas fa-book-reader"></i> 微信读书
+                            </a>
+                            <a href="https://www.dedao.cn/search/result?q=我的母亲做保洁" target="_blank" class="book-link dedao">
+                                <i class="fas fa-graduation-cap"></i> 得到电子书
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
